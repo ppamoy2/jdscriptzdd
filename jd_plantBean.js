@@ -485,7 +485,7 @@ async function plantShareSupportList() {
   }
 }
 //助力好友的api
-async function helpShare(plantUuid) {
+/*async function helpShare(plantUuid) {
   console.log(`\n开始助力好友: ${plantUuid}`);
   const body = {
     "plantUuid": plantUuid,
@@ -603,6 +603,7 @@ function requireConfig() {
     resolve()
   })
 }
+*/
 function requestGet(function_id, body = {}) {
   if (!body.version) {
     body["version"] = "9.0.0.1";
