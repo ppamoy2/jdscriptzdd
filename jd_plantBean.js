@@ -357,7 +357,7 @@ function showTaskProcess() {
   })
 }
 //助力好友
-async function doHelp() {
+/*async function doHelp() {
   for (let plantUuid of newShareCodes) {
     console.log(`开始助力京东账号${$.index} - ${$.nickName}的好友: ${plantUuid}`);
     if (!plantUuid) continue;
@@ -388,6 +388,7 @@ async function doHelp() {
     }
   }
 }
+*/
 function showMsg() {
   $.log(`\n${message}\n`);
   jdNotify = $.getdata('jdPlantBeanNotify') ? $.getdata('jdPlantBeanNotify') : jdNotify;
@@ -485,7 +486,7 @@ async function plantShareSupportList() {
   }
 }
 //助力好友的api
-/*async function helpShare(plantUuid) {
+async function helpShare(plantUuid) {
   console.log(`\n开始助力好友: ${plantUuid}`);
   const body = {
     "plantUuid": plantUuid,
@@ -603,7 +604,7 @@ function requireConfig() {
     resolve()
   })
 }
-*/
+
 function requestGet(function_id, body = {}) {
   if (!body.version) {
     body["version"] = "9.0.0.1";
