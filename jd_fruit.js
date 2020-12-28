@@ -86,7 +86,7 @@ async function jdFruit() {
     console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的${$.name}好友互助码】${$.farmInfo.farmUserPro.shareCode}\n`);
     console.log(`\n【已成功兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`);
     message += `【已兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`;
-    await masterHelpShare();//助力好友
+    //await masterHelpShare();//助力好友
     if ($.farmInfo.treeState === 2 || $.farmInfo.treeState === 3) {
       option['open-url'] = urlSchema;
       $.msg($.name, ``, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${$.farmInfo.farmUserPro.name}已可领取\n请去京东APP或微信小程序查看\n点击弹窗即达`, option);
@@ -512,7 +512,7 @@ async function turntableFarm() {
       }
     }
     //天天抽奖助力
-    console.log('开始天天抽奖--好友助力--每人每天只有三次助力机会.')
+   /* console.log('开始天天抽奖--好友助力--每人每天只有三次助力机会.')
     for (let code of newShareCodes) {
       if (code === $.farmInfo.farmUserPro.shareCode) {
         console.log('天天抽奖-不能自己给自己助力\n')
@@ -530,6 +530,7 @@ async function turntableFarm() {
       }
     }
     console.log(`---天天抽奖次数remainLotteryTimes----${remainLotteryTimes}次`)
+    */
     //抽奖
     if (remainLotteryTimes > 0) {
       console.log('开始抽奖')
@@ -605,7 +606,7 @@ async function getExtraAward() {
   }
 }
 //助力好友
-async function masterHelpShare() {
+/*async function masterHelpShare() {
   console.log('开始助力好友')
   let salveHelpAddWater = 0;
   let remainTimes = 4;//今日剩余助力次数,默认4次（京东农场每人每天4次助力机会）。
@@ -672,6 +673,7 @@ async function masterHelpShare() {
   message += `【今日剩余助力👬】${remainTimes}次\n`;
   console.log('助力好友结束，即将开始领取额外水滴奖励\n');
 }
+*/
 //水滴雨
 async function executeWaterRains() {
   let executeWaterRain = !$.farmTask.waterRainInit.f;
@@ -792,7 +794,7 @@ async function getAwardInviteFriend() {
   }
 }
 //给好友浇水
-async function doFriendsWater() {
+/*async function doFriendsWater() {
   await friendListInitForFarm();
   console.log('开始给好友浇水...');
   await taskInitForFarm();
@@ -849,6 +851,7 @@ async function doFriendsWater() {
     console.log(`今日已为好友浇水量已达${waterFriendMax}个`)
   }
 }
+*/
 //领取给3个好友浇水后的奖励水滴
 async function getWaterFriendGotAward() {
   await taskInitForFarm();
