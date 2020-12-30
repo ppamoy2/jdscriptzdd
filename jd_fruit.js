@@ -199,13 +199,14 @@ async function doDailyTask() {
     console.log('当前不在定时领水时间断或者已经领过\n')
   }
   //给好友浇水
-  if (!$.farmTask.waterFriendTaskInit.f) {
+  /*if (!$.farmTask.waterFriendTaskInit.f) {
     if ($.farmTask.waterFriendTaskInit.waterFriendCountKey < $.farmTask.waterFriendTaskInit.waterFriendMax) {
       await doFriendsWater();
     }
   } else {
     console.log(`给${$.farmTask.waterFriendTaskInit.waterFriendMax}个好友浇水任务已完成\n`)
   }
+  */
   // await Promise.all([
   //   clockInIn(),//打卡领水
   //   executeWaterRains(),//水滴雨
