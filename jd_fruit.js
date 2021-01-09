@@ -86,7 +86,7 @@ async function jdFruit() {
     console.log(`\n【京东账号${$.index}（${$.nickName || $.UserName}）的${$.name}好友互助码】${$.farmInfo.farmUserPro.shareCode}\n`);
     console.log(`\n【已成功兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`);
     message += `【已兑换水果】${$.farmInfo.farmUserPro.winTimes}次\n`;
-    await masterHelpShare();//助力好友
+    //await masterHelpShare();//助力好友
     if ($.farmInfo.treeState === 2 || $.farmInfo.treeState === 3) {
       option['open-url'] = urlSchema;
       $.msg($.name, ``, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${$.farmInfo.farmUserPro.name}已可领取\n请去京东APP或微信小程序查看\n点击弹窗即达`, option);
@@ -605,7 +605,7 @@ async function getExtraAward() {
   }
 }
 //助力好友
-async function masterHelpShare() {
+/*async function masterHelpShare() {
   console.log('开始助力好友')
   let salveHelpAddWater = 0;
   let remainTimes = 4;//今日剩余助力次数,默认4次（京东农场每人每天4次助力机会）。
@@ -672,6 +672,7 @@ async function masterHelpShare() {
   message += `【今日剩余助力👬】${remainTimes}次\n`;
   console.log('助力好友结束，即将开始领取额外水滴奖励\n');
 }
+*/
 //水滴雨
 async function executeWaterRains() {
   let executeWaterRain = !$.farmTask.waterRainInit.f;
