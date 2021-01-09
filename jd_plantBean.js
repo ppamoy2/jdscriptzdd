@@ -1,6 +1,6 @@
 /*
 种豆得豆 脚本更新地址：https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_plantBean.js
-更新时间：2020-11-04
+更新时间：2020-12-31
 已支持IOS京东双账号,云端N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 注：会自动关注任务中的店铺跟商品，介意者勿使用。
@@ -46,7 +46,7 @@ let randomCount = $.isNode() ? 20 : 5;
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
-    $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
+    $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
   for (let i = 0; i < cookiesArr.length; i++) {
@@ -59,7 +59,7 @@ let randomCount = $.isNode() ? 20 : 5;
       await TotalBean();
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
-        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
+        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
@@ -97,7 +97,7 @@ async function jdPlantBean() {
     message += `【上期时间】${roundList[0].dateDesc.replace('上期 ', '')}\n`;
     message += `【上期成长值】${roundList[0].growth}\n`;
     await receiveNutrients();//定时领取营养液
-    //await doHelp();//助力
+    await doHelp();//助力
     await doTask();//做日常任务
     await doEgg();
     await stealFriendWater();
@@ -161,14 +161,27 @@ async function stealFriendWater() {
       return
     }
     if ($.stealFriendList.data && $.stealFriendList.data.friendInfoList && $.stealFriendList.data.friendInfoList.length > 0) {
+      let nowTimes = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
       for (let item of $.stealFriendList.data.friendInfoList) {
-        if (item.nutrCount >= 3) {
-          // console.log(`可以偷的好友的信息::${JSON.stringify(item)}`);
-          console.log(`可以偷的好友的信息paradiseUuid::${JSON.stringify(item.paradiseUuid)}`);
-          await collectUserNutr(item.paradiseUuid);
-          console.log(`偷取好友营养液情况:${JSON.stringify($.stealFriendRes)}`)
-          if ($.stealFriendRes.code === '0') {
-            console.log(`偷取好友营养液成功`)
+        if (new Date(nowTimes).getHours() === 20) {
+          if (item.nutrCount >= 2) {
+            // console.log(`可以偷的好友的信息::${JSON.stringify(item)}`);
+            console.log(`可以偷的好友的信息paradiseUuid::${JSON.stringify(item.paradiseUuid)}`);
+            await collectUserNutr(item.paradiseUuid);
+            console.log(`偷取好友营养液情况:${JSON.stringify($.stealFriendRes)}`)
+            if ($.stealFriendRes.code === '0') {
+              console.log(`偷取好友营养液成功`)
+            }
+          }
+        } else {
+          if (item.nutrCount >= 3) {
+            // console.log(`可以偷的好友的信息::${JSON.stringify(item)}`);
+            console.log(`可以偷的好友的信息paradiseUuid::${JSON.stringify(item.paradiseUuid)}`);
+            await collectUserNutr(item.paradiseUuid);
+            console.log(`偷取好友营养液情况:${JSON.stringify($.stealFriendRes)}`)
+            if ($.stealFriendRes.code === '0') {
+              console.log(`偷取好友营养液成功`)
+            }
           }
         }
       }
@@ -357,7 +370,7 @@ function showTaskProcess() {
   })
 }
 //助力好友
-/*async function doHelp() {
+async function doHelp() {
   for (let plantUuid of newShareCodes) {
     console.log(`开始助力京东账号${$.index} - ${$.nickName}的好友: ${plantUuid}`);
     if (!plantUuid) continue;
@@ -388,7 +401,6 @@ function showTaskProcess() {
     }
   }
 }
-*/
 function showMsg() {
   $.log(`\n${message}\n`);
   jdNotify = $.getdata('jdPlantBeanNotify') ? $.getdata('jdPlantBeanNotify') : jdNotify;
@@ -509,7 +521,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取个${randomCount}码放到您固定的互助码后面`)
+            console.log(`随机取个${randomCount}码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
@@ -604,7 +616,6 @@ function requireConfig() {
     resolve()
   })
 }
-
 function requestGet(function_id, body = {}) {
   if (!body.version) {
     body["version"] = "9.0.0.1";
