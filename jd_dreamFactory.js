@@ -95,7 +95,7 @@ async function jdDreamFactory() {
   await userInfo();
   await QueryFriendList();//查询今日招工情况以及剩余助力次数
   await joinLeaderTuan();//参团
-  await helpFriends();
+  //await helpFriends();
   if (!$.unActive) return
   await getUserElectricity();
   await taskList();
@@ -345,7 +345,7 @@ function hireAward(date, type = 0) {
     })
   })
 }
-async function helpFriends() {
+/*async function helpFriends() {
   let Hours = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).getHours();
   if ($.canHelpFlag && Hours >= 6) {
     await shareCodesFormat();
@@ -371,6 +371,7 @@ async function helpFriends() {
     $.log(`今日助力好友机会已耗尽\n`);
   }
 }
+
 // 帮助用户
 function assistFriend(sharepin) {
   return new Promise(async resolve => {
@@ -411,6 +412,7 @@ function assistFriend(sharepin) {
     })
   })
 }
+*/
 //查询助力招工情况
 function QueryFriendList() {
   return new Promise(async resolve => {
